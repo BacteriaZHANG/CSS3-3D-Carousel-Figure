@@ -42,7 +42,6 @@
             border: 2px solid #fff;
             color: #fff;
             font-size: 240px;
-            cursor: pointer;
             background-color: rgba(0, 0, 0, 0.6); 
         }
         p:nth-child(1) { transform: rotateY(0deg) translateZ(300px);}
@@ -52,24 +51,7 @@
         p:nth-child(5) { transform: rotateY(240deg) translateZ(300px);}
         p:nth-child(6) { transform: rotateY(300deg) translateZ(300px);}
     </style>
-</head>
-<body>
-<div class="wrap">
-    <div class="stage">
-        <div class="container">
-            <p>1</p>
-            <p>2</p>
-            <p>3</p>
-            <p>4</p>
-            <p>5</p>
-            <p>6</p>
-        </div>
-    </div>
-    <input type="button" id="btn1" value="<<上一张">
-    <input type="button" id="btn2" value="下一张>>">
-    <h2>随意拖拽试试</h2>
-</div>
-
+    
 <script type="text/javascript" src="http://code.jquery.com/jquery-3.1.0.min.js"></script>
 <script type="text/javascript">
     $(function () {
@@ -139,5 +121,22 @@
         }
     })
 </script>
+</head>
+<body>
+<div class="wrap">
+    <div class="stage">
+        <div class="container">
+            <p>1</p>
+            <p>2</p>
+            <p>3</p>
+            <p>4</p>
+            <p>5</p>
+            <p>6</p>
+        </div>
+    </div>
+    <input type="button" id="btn1" value="<<上一张">
+    <input type="button" id="btn2" value="下一张>>">
+    <h2>随意拖拽试试</h2>
+</div>
 </body>
 </html>
