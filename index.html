@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style type="text/css">
+        *{margin: 0; padding:0;}
+        h2, span{color: #eee;}
+        body{
+            background: #eee;
+            text-align: center;
+        }
+        .wrap{
+            width: 100%;
+            height: 600px;
+            position: absolute;
+            top: 50%;
+            background: #333;
+            margin-top: -300px;
+        }
+        .stage{
+            width: 240px;
+            height: 320px;
+            position: absolute;
+            margin: -160px 0 0 -120px;
+            left: 50%;
+            top: 50%;
+        }
+        .container{
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            transform: perspective(1800px);
+            transform-style: preserve-3d;
+        }
+        p img{
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+        img:nth-child(1) { transform: rotateY(0deg) translateZ(300px);}
+        img:nth-child(2) { transform: rotateY(60deg) translateZ(300px);}
+        img:nth-child(3) { transform: rotateY(120deg) translateZ(300px);}
+        img:nth-child(4) { transform: rotateY(180deg) translateZ(300px);}
+        img:nth-child(5) { transform: rotateY(240deg) translateZ(300px);}
+        img:nth-child(6) { transform: rotateY(300deg) translateZ(300px);}
+    </style>
+</head>
+<body>
+<div class="wrap">
+    <div class="stage">
+        <p class="container">
+            <img src="images/1.jpg">
+            <img src="images/2.jpg">
+            <img src="images/3.jpg">
+            <img src="images/4.jpg">
+            <img src="images/5.jpg">
+            <img src="images/6.jpg">
+        </p>
+    </div>
+    <input type="button" id="btn1" value="<<上一张">
+    <input type="button" id="btn2" value="下一张>>">
+    <h2>随意拖拽试试</h2>
+</div>
+
+<script type="text/javascript" src="jQuery v3.1.0.js"></script>
+<script type="text/javascript">
+    $(function () {
+        var y=0;
+        var x=0;
+        var remainder=0;
+        var delta = 0;
+        var disX;
+        var disY;
+        var $body = $('.container');
+        $body.bind('mousedown', function(ev){
+            var deltaY = y;
+            disX=ev.pageX/10-y;
+            disY=-ev.pageY/10-x;
+            $(document).bind('mousemove', function(event){
+                x=-event.pageY/10-disY;
+                y=event.pageX/10-disX;
+                delta = event.pageX;
+                $body[0].style.transform='perspective(1800px) rotateX('+x+'deg) rotateY('+y+'deg)';
+                $body[0].style.transition='';
+            });
+            $(document).bind('mouseup', function(){
+                delta = delta-ev.pageX;
+                remainder = Math.abs(deltaY - y);
+                deltaY = y;
+                if (delta > 0) right();
+                if (delta < 0) left();
+                $(this).unbind('mousemove');
+                $(this).unbind('mouseup');
+            });
+            return false;
+        });
+        $('#btn1').bind('click', left);
+        $('#btn2').bind('click', right);
+        function left() {
+                x = 0;
+                if(remainder !== 0) {
+                    if(delta > 0){
+                        y -= remainder;
+                    } else {
+                        y -= (60 - remainder);
+                    }
+                } else {
+                    y -= 60;
+                }
+                $body[0].style.transform='perspective(1800px) rotateX('+x+'deg) rotateY('+y+'deg)';
+                $body[0].style.transition='transform 1s ease';
+                remainder=0;
+                return false;
+        }
+        function right() {
+                x = 0;
+                if(remainder !== 0) {
+                    if(delta < 0){
+                        y += remainder;
+                    } else {
+                        y += (60 - remainder);
+                    }
+                } else {
+                    y += 60;
+                }
+                $body[0].style.transform='perspective(1800px) rotateX('+x+'deg) rotateY('+y+'deg)';
+                $body[0].style.transition='transform 1s ease';
+                delta = 0;
+                remainder=0;
+                return false;
+        }
+    })
+</script>
+</body>
+</html>
